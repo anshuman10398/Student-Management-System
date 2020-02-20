@@ -1,0 +1,15 @@
+
+<form action="/users/attends" method="POST">
+    <% practic.forEach(function (prac,k) { prac.present.forEach( function(ite) {%>
+       <div style="margin-top: 10px;"><%= ite.date %> 
+       <input name ="<%= prac.name%>"  value = "<%= prac.name%>" style="position:fixed; left:20%; margin-top:5px;" type="checkbox" checked="checked"></div><!-- note you defined the field as Name not name -->
+    <% })}) %>
+ 
+ <div  align = "center">
+       <input type="submit" value="Login">
+
+  
+    </div>
+ </form>
+
+ 
