@@ -1,0 +1,12 @@
+
+<form action="/users/attends" method="POST">
+   <% practices.forEach(function (prac,k) {%>
+      <div style="margin-top: 10px;"><%= prac.name %> 
+      <input name ="<%= prac.name%>"  value = "<%= prac.name%>" style="position:fixed; left:20%; margin-top:5px;" type="checkbox" checked="checked"></div><!-- note you defined the field as Name not name -->
+   <% }) %>
+
+<div  align = "center">
+      <input type="submit" value="Login">
+ 
+   </div>
+</form>
