@@ -30,9 +30,9 @@
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading">Start Bootstrap </div>
       <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-        <a href="/marks" class="list-group-item list-group-item-action bg-light">Marks</a>
-        <a href="/attendance" class="list-group-item list-group-item-action bg-light">Attendance</a>
+        <a href="/dashboard" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+        <a href="/subjects" class="list-group-item list-group-item-action bg-light">Upload Marks</a>
+        <a href="/subject" class="list-group-item list-group-item-action bg-light">Upload Attendance</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
@@ -75,37 +75,22 @@
 
       <div class="container-fluid">
         <!-- <div style="text-align: center; margin-bottom: 40px; margin-top: 40px;"></div> -->
-        <h1>HI <%=data.name%></h1>
-        <!-- <table class="table" style="margin=40vh">
+    
+        <table class="table" >
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Subjects</th>
     </tr>
   </thead>
   <tbody>
+      <% teacher.forEach(teach => {%>
+       <% teach.subjects.forEach(subject =>{%>
     <tr>
-      <th scope="row">1233456</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+      <th scope="row"><a href ="/subjects/marks/<%=subject.id%>"><%=subject.name%></a></th>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
+    <%})});%>
   </tbody>
-</table> -->
+</table>
 
       </div>
     </div>

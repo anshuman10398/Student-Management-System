@@ -1,0 +1,76 @@
+GET http://localhost:3000/students
+###
+GET http://localhost:3000/teachers
+
+###
+GET http://localhost:3000/marks/5eb989bba0e00f5ea8711778
+
+###
+POST http://localhost:3000/add/students
+Content-Type: application/json
+
+{
+    "name": "Jyotsna",
+    "dob": "21-09-99",
+    "password": "me",
+    "id": "BE/10002/17",
+    "branch": "CSE",
+    "semester": "VI",
+    "subjects":[
+        {"name": "Software Engineering","id": "CS6009"  ,"instructor": "Bhaskar Sir"}
+    ]
+}
+###
+POST http://localhost:3000/add/teachers
+Content-Type: application/json
+
+{
+    "name": "Indrajeet Sir",
+    "department": "CSE",
+    "password": "im",
+    "id": "indra",
+    "subjects":[
+        {"name": "Compiler Design","id": "CS6004" }
+    ]
+}
+
+###
+POST http://localhost:3000/CS6004
+Content-Type: application/json
+
+{
+    "pre": ["BE/10011/17"],
+    "ab": [],
+    "date": "25-03-2020"
+}
+
+###
+DELETE http://localhost:3000/students/5eca474589ade2170642d2f6
+
+###
+DELETE http://localhost:3000/teachers/5eca48e0431a4717e6ae2cc2
+###
+
+GET http://localhost:3000/students/CS6004
+
+###
+POST http://localhost:3000/feedback/CS6004
+Content-Type: application/json
+
+{
+    "feedback":"Nice Course!"
+}
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "roll":"BE/10527/17",
+    "password":"wow"
+}
+
+###
+
+GET http://localhost:3000/logout
