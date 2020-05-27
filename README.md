@@ -6,5 +6,5 @@
 ## Steps to Run
 * Go to the selab folder on your machine and open git bash/terminal
 * run `npm install` on git bash/terminal
-* run `npm run dev` on git bash/terminal
-* access the site at `http://localhost:5000`
+* run `node index.js` on git bash/terminal
+* access the site at `http://localhost:3000`
