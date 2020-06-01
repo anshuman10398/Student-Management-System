@@ -30,9 +30,9 @@
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading">Start Bootstrap </div>
       <div class="list-group list-group-flush">
-        <a href="./dashboard" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-        <a href="./marks" class="list-group-item list-group-item-action bg-light">Marks</a>
-        <a href="./attendance" class="list-group-item list-group-item-action bg-light">Attendance</a>
+        <a href="/dashboard" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+        <a href="/marks" class="list-group-item list-group-item-action bg-light">Marks</a>
+        <a href="/attendance" class="list-group-item list-group-item-action bg-light">Attendance</a>
         <a href="/feedback" class="list-group-item list-group-item-action bg-light">Submit Feedback</a>        <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
       </div>
@@ -55,7 +55,7 @@
               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"><%=student.name%></a>
+              <a class="nav-link" href="#">Link</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -73,29 +73,49 @@
       </nav>
 
       <div class="container-fluid">
-        <div style="text-align: center; margin-bottom: 40px; margin-top: 40px;">MARKS</div>
-        
-        <table class="table">
+        <!-- <div style="text-align: center; margin-bottom: 40px; margin-top: 40px;"></div> -->
+        <form action="/feedback" method="POST">
+            
+        <input style="margin-top: 20px; margin-bottom: 10px;" list="subjects" name = "subject" id="subject" placeholder="Select Subject">
+        <datalist id = "subjects">
+            <%student.forEach( stud => {%>
+            <%stud.subjects.forEach(subject => {%>
+            <option value="<%=subject.id%>">
+            <%})})%> 
+        </datalist>
+        <input name="feedback" type = "text" size="50" placeholder="Enter Feedback">
+        <button type="submit">Submit</button>
+        </form>
+        <!-- <table class="table" style="margin=40vh">
   <thead>
     <tr>
-      <th scope="col">Subject</th>
-      <th scope="col">Classes Present</th>
-      <th scope="col">Total Classes</th>
-      <!-- <th scope="col">Endsem</th> -->
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
     </tr>
   </thead>
   <tbody>
-    <% student.subjects.forEach(subject =>{ %>
     <tr>
-      <th scope="row"><%=subject.name%></th>
-      <td><%=subject.attendance.present.length%></td>
-      <td><%=subject.attendance.total.length%></td>
-      <!-- <td><%=subject.endsem%></td> -->
+      <th scope="row">1233456</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
     </tr>
-    <%});%>
-    
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
   </tbody>
-</table>
+</table> -->
 
       </div>
     </div>

@@ -167,15 +167,20 @@ router.get('/subjects/marks/:id',teach,async(req,res) => {
     }
 })
 
-router.get('/subjects', async (req,res) =>{
+router.get('/subjects',teach, async (req,res) =>{
     let teacher = await Teacher.find({"id":req.user[0].id},{subjects:1})
     res.render('subject_marks',{teacher:teacher});
 });
 
-router.get('/subject', async (req,res) =>{
+router.get('/subject',teach, async (req,res) =>{
     let teacher = await Teacher.find({"id":req.user[0].id},{subjects:1})
     res.render('subject_attendance',{teacher:teacher});
 });
+
+router.get('/feeds',teach,async (req,res) =>{
+    let teacher = await Teacher.find({"id":req.user[0].id},{subjects:1})
+    res.render('subject_feedback',{teacher:teacher});
+})
 //Uploading Marks of a Particular Subject
 
 router.post('/subjects/marks/:id',teach,async (req,res) => {
@@ -203,12 +208,12 @@ router.get('/attendance/:id',async (req,res) => {
 
 });
 
-router.get('/upload/attendance/:id',async (req,res) => {
+router.get('/upload/attendance/:id',teach,async (req,res) => {
     let student = await Student.find({"subjects.id":req.params.id},{id:1,subjects:1}).sort({id:1});
     res.render('uploadattend',{student:student,id:req.params.id})
 })
 
-router.post('/upload/attendance/:id2',async (req,res) =>{
+router.post('/upload/attendance/:id2',teach,async (req,res) =>{
     let da = req.body.date;
     await Student.updateMany({"subjects.id":req.params.id2},{$push: {"subjects.$.attendance.total": da}})
     for(let item in req.body)
@@ -231,7 +236,8 @@ router.post('/upload/attendance/:id2',async (req,res) =>{
 router.delete('/students/:id',async (req,res) =>{
     let student
     try{
-        student = await Student.deleteOne({"_id":req.params.id})
+        student = await Student.deleteOne({"id":req.params.id})
+        await User.deleteOne({"id":req.params.id});
         return res.status(201).json({message: "deleted..."})
     } catch(err){
      return res.status(500).json({message: err.message}) 
@@ -243,7 +249,8 @@ router.delete('/students/:id',async (req,res) =>{
 router.delete('/teachers/:id',async (req,res) =>{
     let student
     try{
-        student = await Teacher.deleteOne({"_id":req.params.id})
+        student = await Teacher.deleteOne({"id":req.params.id})
+        await User.deleteOne({"id":req.params.id});
         return res.status(201).json({message: "deleted..."})
     } catch(err){
      return res.status(500).json({message: err.message}) 
@@ -251,10 +258,12 @@ router.delete('/teachers/:id',async (req,res) =>{
 })
 //Posting Feedback on a subject
 
-router.post('/feedback/:id',async (req,res)=>{
+router.post('/feedback',authenticate,async (req,res)=>{
     let feed = req.body.feedback;
+    let sub = req.body.subject;
+    console.log(sub);
     try{
-       await Teacher.updateOne({"subjects.id":req.params.id},
+       await Teacher.updateOne({"subjects.id":sub},
        {$push: {"subjects.$.feedbacks":feed}});
        res.status(201).json({message:"feedback posted..."})
     }catch(err)
@@ -263,6 +272,28 @@ router.post('/feedback/:id',async (req,res)=>{
     }
 });
 
+router.get('/feedback',authenticate,async (req,res)=>{
+    let stud = req.user[0].id;
+    try{
+      let student = await Student.find({"id":stud},{subjects:1})
+      res.render('feedback_student.ejs',{student:student})
+    }catch(err)
+    {
+        res.status(500).json({message:"err.message"});
+    }
+});
+
+router.get('/view/feedback/:id',teach,async (req,res) => {
+        let sub = req.params.id;
+        let id = req.user[0].id;
+        try{
+            let feeds = await Teacher.find({"id":id},{subjects:1})
+            res.render('feedback_teacher',{feeds:feeds,id:req.params.id})
+        }
+        catch(err){
+            res.status(401).json({message:"Error occured"})
+        }
+})
 
 async function getStudent(req,res,next) {
     let student
